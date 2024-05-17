@@ -53,7 +53,8 @@ build {
     inline = [
       "apt-get update", # Updates of the OS
       "apt-get upgrade -y",
-      "useradd --system --user-group --shell /bin/false aiapp", #Setting up the system for the app
+      "bash -c \"$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)\"", #Adding Datadog monitoring agent
+      "useradd --system --user-group --shell /bin/false aiapp",                                    #Setting up the system for the app
       "mkdir -p /home/aiapp/app",
       "mkdir -p /home/aiapp/.venv",
       "cd /home/aiapp/.venv",
@@ -64,8 +65,7 @@ build {
       "sudo -H python3 get-pip.py",
       "sudo -H apt install python3-flask -y",
       "sudo pip install gunicorn",
-      "python3 -m pip install flask-openai",
-      "bash -c \"$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)\"" #Adding Datadog monitoring agent
+      "python3 -m pip install flask-openai"
     ]
     inline_shebang = "/bin/bash -x"
   }
