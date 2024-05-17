@@ -43,9 +43,12 @@ build {
       "DD_API_KEY=${var.dd_api_key}", #Datadog agent config variables
       "DD_SITE=${var.dd_site}",
       "DD_APM_INSTRUMENTATION_ENABLED=host",
-      "DD_ENV=none",
+      "DD_ENV=test",
+      "DD_SERVICE=chatbot",
+      "DD_SOURCE=python",
       "DD_APM_INSTRUMENTATION_LIBRARIES=python",
-      "DD_INSTALL_ONLY=true"
+      "DD_INSTALL_ONLY=true",
+      "DD_OPENAI_LOGS_ENABLED=true"
     ]
 
 
