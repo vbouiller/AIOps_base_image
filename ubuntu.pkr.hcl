@@ -58,7 +58,6 @@ build {
       "apt-get upgrade -y",
       "bash -c \"$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)\"", #Adding Datadog monitoring agent
       "useradd --system --user-group --shell /bin/false aiapp",                                    #Setting up the system for the app
-      "mkdir -p /home/aiapp/app",
       "mkdir -p /home/aiapp/.venv",
       "cd /home/aiapp/.venv",
       "sudo -H apt install python3.10-venv -y",
