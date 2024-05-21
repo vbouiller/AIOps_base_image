@@ -48,7 +48,9 @@ build {
       "DD_SOURCE=python",
       "DD_APM_INSTRUMENTATION_LIBRARIES=python",
       "DD_INSTALL_ONLY=true",
-      "DD_OPENAI_LOGS_ENABLED=true"
+      "DD_OPENAI_LOGS_ENABLED=true",
+      "DD_LLMOBS_ENABLED=1",
+      "DD_LLMOBS_APP_NAME=chatbot"
     ]
 
 
@@ -57,8 +59,14 @@ build {
       "apt-get update", # Updates of the OS
       "apt-get upgrade -y",
       "bash -c \"$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)\"", #Adding Datadog monitoring agent
-      "useradd --system --user-group --shell /bin/false aiapp",                                    #Setting up the system for the app
+      "useradd --system --user-group --shell /bin/false vault",
+      "wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg",
+      "echo \"deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main\" | sudo tee /etc/apt/sources.list.d/hashicorp.list",
+      "sudo apt update && sudo apt install vault",
+      "sudo echo '%vault ALL=(root) NOPASSWD: /usr/bin/systemctl restart gunicorn' > /etc/sudoers.d/vault",
+      "useradd --system --user-group --shell /bin/false aiapp", #Setting up the system for the app
       "mkdir -p /home/aiapp/.venv",
+      "sudo chmod -R a+rw /home/aiapp/",
       "cd /home/aiapp/.venv",
       "sudo -H apt install python3.10-venv -y",
       "python3 -m venv AIapp",
