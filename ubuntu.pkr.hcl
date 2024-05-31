@@ -62,8 +62,8 @@ build {
       "useradd --system --user-group --shell /bin/false vault",
       "wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg",
       "echo \"deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main\" | sudo tee /etc/apt/sources.list.d/hashicorp.list",
-      "sudo apt update && sudo apt install vault",
-      "sudo apt install jq",
+      "sudo apt update -y && sudo apt install vault",
+      "sudo apt install jq -y",
       "sudo echo '%vault ALL=(root) NOPASSWD: /usr/bin/systemctl restart gunicorn' > /etc/sudoers.d/vault",
       "useradd --system --user-group --shell /bin/false aiapp", #Setting up the system for the app
       "mkdir -p /home/aiapp/.venv",
